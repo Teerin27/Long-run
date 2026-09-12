@@ -11,6 +11,7 @@ full-stack mobile development with geospatial and real-time data challenges.
 
 ## Tech Stack
 - **Mobile:** React Native + Expo
+- **Styling:** NativeWind (Tailwind CSS for React Native)
 - **Backend:** Node.js (NestJS)
 - **Database:** PostgreSQL + PostGIS (geospatial queries)
 - **Real-time Leaderboards:** Redis Sorted Sets
