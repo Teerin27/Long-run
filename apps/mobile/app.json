@@ -8,10 +8,22 @@
     "scheme": "longrun",
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Long-run uses your location to track the route and distance of your runs."
+      }
     },
     "android": {
-      "package": "com.longrun.app"
-    }
+      "package": "com.longrun.app",
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Long-run uses your location to track the route and distance of your runs."
+        }
+      ]
+    ]
   }
 }

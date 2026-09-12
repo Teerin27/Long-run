@@ -62,12 +62,16 @@ Long-run/
 
 ## 3. Development
 
-> Status: foundational auth phase. Sign-up/sign-in (Firebase Authentication),
-> the `users` module (TypeORM + PostgreSQL, full CRUD), and the backend guard
-> that verifies Firebase ID tokens are implemented. GPS tracking and
-> leaderboards are not yet built. The app will not fully run until a real
-> Firebase project's credentials are filled into `.env` — the code is written
-> against that contract already.
+> Status: auth + GPS activity tracking phase. Sign-up/sign-in (Firebase
+> Authentication), the `users` module (TypeORM + PostgreSQL, full CRUD), and
+> the backend guard that verifies Firebase ID tokens are implemented. The
+> `activities` module now stores GPS runs: the mobile app records a route
+> with `expo-location`, uploads it, and the backend stores the track as a
+> PostGIS `geography` LineString and computes distance with `ST_Length`
+> (never reimplemented in application code). Real-time leaderboards
+> (Redis Sorted Sets) are not yet built. The app will not fully run until a
+> real Firebase project's credentials are filled into `.env` — the code is
+> written against that contract already.
 
 ```bash
 pnpm install                 # install all workspaces
