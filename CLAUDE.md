@@ -62,8 +62,12 @@ Long-run/
 
 ## 3. Development
 
-> Status: scaffolding phase. Folder structure and config exist; feature code is
-> not written yet.
+> Status: foundational auth phase. Sign-up/sign-in (Firebase Authentication),
+> the `users` module (TypeORM + PostgreSQL, full CRUD), and the backend guard
+> that verifies Firebase ID tokens are implemented. GPS tracking and
+> leaderboards are not yet built. The app will not fully run until a real
+> Firebase project's credentials are filled into `.env` — the code is written
+> against that contract already.
 
 ```bash
 pnpm install                 # install all workspaces

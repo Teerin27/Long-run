@@ -18,13 +18,14 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
 
       - name: Test
         run: pnpm test
 
-      # Enable once real source lands:
+      # Enable once eslint is configured for each workspace:
       # - name: Lint
       #   run: pnpm lint
-      # - name: Build
-      #   run: pnpm build
