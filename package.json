@@ -1,0 +1,17 @@
+{
+  "name": "long-run",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Strava-inspired competitive fitness tracking app with real-time leaderboards.",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "mobile": "pnpm --filter mobile start",
+    "api": "pnpm --filter api start:dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
+  }
+}

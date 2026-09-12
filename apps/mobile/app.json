@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "Long-run",
+    "slug": "long-run",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "scheme": "longrun",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.longrun.app"
+    }
+  }
+}
