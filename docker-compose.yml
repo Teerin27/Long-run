@@ -1,4 +1,25 @@
 services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: longrun-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Override the .env defaults so the container reaches the other
+      # containers by service name instead of localhost.
+      DATABASE_URL: postgresql://longrun:longrun@postgres:5432/longrun
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
   postgres:
     image: postgis/postgis:16-3.4
     container_name: longrun-postgres

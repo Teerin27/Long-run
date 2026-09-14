@@ -62,16 +62,27 @@ Long-run/
 
 ## 3. Development
 
-> Status: auth + GPS activity tracking phase. Sign-up/sign-in (Firebase
-> Authentication), the `users` module (TypeORM + PostgreSQL, full CRUD), and
-> the backend guard that verifies Firebase ID tokens are implemented. The
-> `activities` module now stores GPS runs: the mobile app records a route
-> with `expo-location`, uploads it, and the backend stores the track as a
-> PostGIS `geography` LineString and computes distance with `ST_Length`
-> (never reimplemented in application code). Real-time leaderboards
-> (Redis Sorted Sets) are not yet built. The app will not fully run until a
-> real Firebase project's credentials are filled into `.env` — the code is
-> written against that contract already.
+> Status: auth + GPS activity tracking + Dockerized backend. Sign-up/sign-in
+> (Firebase Authentication), the `users` module (TypeORM + PostgreSQL, full
+> CRUD), and the backend guard that verifies Firebase ID tokens are
+> implemented. The `activities` module stores GPS runs: the mobile app
+> records a route with `expo-location`, uploads it, and the backend stores
+> the track as a PostGIS `geography` LineString and computes distance with
+> `ST_Length` (never reimplemented in application code). The api is
+> containerized (`apps/api/Dockerfile`, multi-stage pnpm-workspace build) and
+> `docker compose up` runs the full backend stack; CI publishes the image to
+> GHCR on every push to `main`. There is no hosting target wired up yet —
+> that's a deploy step for whoever runs this, not something built in.
+> Real-time leaderboards (Redis Sorted Sets) are not yet built. The app will
+> not fully run until a real Firebase project's credentials are filled into
+> `.env` — the code is written against that contract already.
+>
+> Packaging note: `packages/shared`'s `package.json` `main`/`types` point at
+> its own compiled `dist/`, not raw `.ts` source — required so
+> `require("@long-run/shared")` resolves to real JS when the api runs as
+> plain compiled output (e.g. in the Docker image), not just under
+> `nest start`'s dev-time path aliasing. Build `packages/shared` before
+> building `apps/api` whenever it changes.
 
 ```bash
 pnpm install                 # install all workspaces
