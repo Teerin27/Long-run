@@ -4,6 +4,7 @@ import { DataSource, Repository } from "typeorm";
 import { ActivityType, type GeoJsonLineString } from "@long-run/shared";
 import { Activity } from "./entities/activity.entity";
 import { CreateActivityDto, GpsPointDto } from "./dto/create-activity.dto";
+import { LeaderboardService } from "../leaderboard/leaderboard.service";
 
 export interface ActivityResponse {
   id: string;
@@ -29,6 +30,7 @@ export class ActivitiesService {
     @InjectRepository(Activity)
     private readonly activitiesRepository: Repository<Activity>,
     private readonly dataSource: DataSource,
+    private readonly leaderboardService: LeaderboardService,
   ) {}
 
   async create(userId: string, dto: CreateActivityDto): Promise<ActivityResponse> {
@@ -56,7 +58,9 @@ export class ActivitiesService {
       .execute();
 
     const id = insertResult.identifiers[0].id as string;
-    return this.findOne(userId, id);
+    const activity = await this.findOne(userId, id);
+    await this.leaderboardService.recordActivity(userId, activity.distanceMeters, activity.startedAt);
+    return activity;
   }
 
   async findAllForUser(userId: string): Promise<ActivityResponse[]> {

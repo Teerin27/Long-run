@@ -15,8 +15,9 @@ mobile development combined with geospatial data and real-time systems.
   server-side. Distance is computed from the actual GPS track using
   PostGIS spatial functions (not an approximation on the phone).
 - **View run history**: past runs with date, distance, duration, and pace.
-- **Compete on leaderboards** *(in progress)*: rankings updated in real time
-  as runners log activities, backed by Redis.
+- **Compete on leaderboards**: daily, weekly, and all-time rankings by total
+  distance, updated the moment a run is saved and served from Redis Sorted
+  Sets rather than a SQL `ORDER BY`.
 - **Get notified** *(planned)*: push notifications for achievements and
   challenges via Firebase Cloud Messaging.
 
@@ -46,7 +47,7 @@ apps/
         ├── auth/           # Firebase token verification
         ├── users/          # User profiles (CRUD)
         ├── activities/     # GPS run tracking (PostGIS)
-        ├── leaderboard/    # Redis-backed rankings (WIP)
+        ├── leaderboard/    # Redis-backed rankings
         └── notifications/  # Push notifications (planned)
 packages/
 └── shared/    # Types shared between mobile and api
@@ -98,7 +99,7 @@ docker-compose ones, which are for local development only).
 | User profiles (CRUD) | ✅ Done |
 | GPS activity tracking (record, store, view history) | ✅ Done |
 | Dockerized api + CI image publish | ✅ Done |
-| Real-time leaderboards (Redis) | 🚧 In progress |
+| Real-time leaderboards (Redis) | ✅ Done |
 | Push notifications (FCM) | ⬜ Planned |
 | Production hosting (deploy the built image somewhere) | ⬜ Planned |
 | Automated tests | ⬜ Planned |

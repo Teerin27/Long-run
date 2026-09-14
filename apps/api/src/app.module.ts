@@ -5,6 +5,7 @@ import databaseConfig from "./config/database.config";
 import { UsersModule } from "./modules/users/users.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ActivitiesModule } from "./modules/activities/activities.module";
+import { LeaderboardModule } from "./modules/leaderboard/leaderboard.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ActivitiesModule } from "./modules/activities/activities.module";
     UsersModule,
     AuthModule,
     ActivitiesModule,
+    LeaderboardModule,
   ],
 })
 export class AppModule {}

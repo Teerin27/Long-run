@@ -21,10 +21,17 @@ export function MainScreen({ navigation }: Props) {
       </TouchableOpacity>
 
       <TouchableOpacity
-        className="mb-6 rounded-lg border border-gray-300 py-3"
+        className="mb-3 rounded-lg border border-gray-300 py-3"
         onPress={() => navigation.navigate("Activities")}
       >
         <Text className="text-center font-semibold text-black">My runs</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        className="mb-6 rounded-lg border border-gray-300 py-3"
+        onPress={() => navigation.navigate("Leaderboard")}
+      >
+        <Text className="text-center font-semibold text-black">Leaderboard</Text>
       </TouchableOpacity>
 
       <TouchableOpacity className="rounded-lg bg-black py-3" onPress={signOut}>

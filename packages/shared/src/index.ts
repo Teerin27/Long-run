@@ -2,3 +2,4 @@
 // Define DTOs/enums here once — never duplicate them across workspaces.
 export * from "./types/user";
 export * from "./types/activity";
+export * from "./types/leaderboard";

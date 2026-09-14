@@ -62,20 +62,23 @@ Long-run/
 
 ## 3. Development
 
-> Status: auth + GPS activity tracking + Dockerized backend. Sign-up/sign-in
-> (Firebase Authentication), the `users` module (TypeORM + PostgreSQL, full
-> CRUD), and the backend guard that verifies Firebase ID tokens are
-> implemented. The `activities` module stores GPS runs: the mobile app
-> records a route with `expo-location`, uploads it, and the backend stores
-> the track as a PostGIS `geography` LineString and computes distance with
-> `ST_Length` (never reimplemented in application code). The api is
-> containerized (`apps/api/Dockerfile`, multi-stage pnpm-workspace build) and
-> `docker compose up` runs the full backend stack; CI publishes the image to
-> GHCR on every push to `main`. There is no hosting target wired up yet —
-> that's a deploy step for whoever runs this, not something built in.
-> Real-time leaderboards (Redis Sorted Sets) are not yet built. The app will
-> not fully run until a real Firebase project's credentials are filled into
-> `.env` — the code is written against that contract already.
+> Status: auth + GPS activity tracking + leaderboards + Dockerized backend.
+> Sign-up/sign-in (Firebase Authentication), the `users` module (TypeORM +
+> PostgreSQL, full CRUD), and the backend guard that verifies Firebase ID
+> tokens are implemented. The `activities` module stores GPS runs: the
+> mobile app records a route with `expo-location`, uploads it, and the
+> backend stores the track as a PostGIS `geography` LineString and computes
+> distance with `ST_Length` (never reimplemented in application code). The
+> `leaderboard` module ranks runners by total distance per window (daily,
+> weekly, all-time) using Redis Sorted Sets (`ZINCRBY` on every saved
+> activity, `ZREVRANGE`/`ZREVRANK` to read) — never a SQL `ORDER BY` on the
+> hot path. The api is containerized (`apps/api/Dockerfile`, multi-stage
+> pnpm-workspace build) and `docker compose up` runs the full backend stack
+> (Postgres+PostGIS, Redis, api); CI publishes the image to GHCR on every
+> push to `main`. There is no hosting target wired up yet — that's a deploy
+> step for whoever runs this, not something built in. The app will not fully
+> run until a real Firebase project's credentials are filled into `.env` —
+> the code is written against that contract already.
 >
 > Packaging note: `packages/shared`'s `package.json` `main`/`types` point at
 > its own compiled `dist/`, not raw `.ts` source — required so
